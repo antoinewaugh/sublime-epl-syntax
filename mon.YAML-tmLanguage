@@ -1,0 +1,58 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: Apama EPL
+scopeName: source.mon
+fileTypes: [mon]
+uuid: 55a4acba-bbc5-4320-bb1f-ad53d26e6dee
+
+patterns:
+- comment: types
+  name: support.type.mon
+  match: \b(integer|float|string|boolean|context|listener)\b
+
+- comment: types
+  name: keyword.operator.mon
+  match: \b(new)\b
+
+- comment: language entity
+  name: storage.type.mon
+  match: \b(monitor|event|package|using|constant|returns)\b
+
+- comment: other keywords 
+  name: keyword.other.mon
+  match: \b(emit|send|on|all|at|wait|onload|onunload|die|spawn|to|dictionary|sequence|log)\b
+
+- comment: double quotes ...
+  name: string.quoted.double.mon 
+  begin: '"'
+  end: '"'
+
+- comment: single quotes ...
+  name: string.quoted.single.mon 
+  begin: ''''
+  end: ''''
+
+- comment: comments block
+  name: comment.block.mon 
+  begin: '/\*'
+  end: '\*/'
+
+- comment: comments line
+  name: comment.line.mon 
+  begin: '//'
+  end: '$'
+
+- comment: 'match regular action like: action myAction ('
+  match: '\b(action)\s+([a-zA-Z_$]\w*)\s*\('
+  name: meta.function.mon
+  captures:
+      '1': {name: storage.type.mon}           
+      '2': {name: entity.name.function.mon}  
+
+- comment: 'match regular action like: action <param> item'
+  match: '\b(action)\s*<([^>]+)>'
+  name: meta.storage.type.mon
+  captures:
+      '1': {name: storage.type.mon}           
+      '2': {name: entity.name.tag.mon}  
+...
